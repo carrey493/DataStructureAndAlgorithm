@@ -67,3 +67,29 @@ console.log(stack.isEmpty());//false
 console.log(stack.size());//2
 
 console.log(stack.toString());//1020
+
+
+//十进制转换为二进制
+function dec2bin(decNumber) {
+    //1.定义一个栈对象
+    let stack = new Stack()
+
+    //2.循环操作
+    while (decNumber > 0) {
+        //2.1获取余数，并且放入到队列中
+        stack.push(decNumber % 2)
+        //2.2获取整除后的结果作为下次运算的数字
+        decNumber = Math.floor(decNumber / 2)
+    }
+
+    //3.从栈中取出0和1
+
+    let binaryString = ''
+    while (!stack.isEmpty()) {
+        binaryString += stack.pop()
+    }
+    return binaryString
+}
+
+console.log(dec2bin(100));//1100100
+console.log(dec2bin(1000));//1111101000
