@@ -604,5 +604,57 @@ console.log(dec2bin(1000));//1111101000
 - 队列的实现和栈一样,有两种方案:
   - 基于数组实现
   - 基于链表实现
+```js
+function Queue() {
+    //属性
+    this.items = []
+}
+```
+
+### 队列的常见操作
+- 队列有哪些常见的操作呢?
+  - enqueue(element):向队列尾部添加一个(或多个)新的项。
+  - dequeue()∶移除队列的第一(即排在队列最前面的)项，并返回被移除的元素。
+  - front():返回队列中第一个元素——最先被添加，也将是最先被移除的元素。队列不做任何变动（不移除元素，只返回元素信息——与Stack类的peek方法非常类似)。
+  - isEmpty):如果队列中不包含任何元素，返回true，否则返回false。
+  - size():返回队列包含的元素个数，与数组的length属性类似。
+  - toString():将队列中的内容,转成字符串形式
+- 现在，,我们来实现这些方法.
+  - 其实很栈中方法的实现非常相似.因为我们的队列也是基于数组的
+```js
+//1.将元素加入到队列中
+    Queue.prototype.enqueue = function (element) {
+        this.items.push(element)
+    }
+
+    //2.从队列中删除前端元素
+    Queue.prototype.dequeue = function () {
+        return this.items.shift()
+    }
+
+    //3.查看前端元素
+    Queue.prototype.front = function () {
+        return this.items[0]
+    }
+
+    //4.查看队列是否为空
+    Queue.prototype.isEmpty = function () {
+        return this.items.length === 0
+    }
+
+    //5.查看队列中元素的个数
+    Queue.prototype.size = function () {
+        return this.items.length
+    }
+
+    //6.toString方法
+    Queue.prototype.toString = function () {
+        let resultString = ''
+        for (let i = 0; i < this.items.length; i++) {
+            resultString += this.items[i] + ''
+        }
+        return resultString
+    }
+```
 
 
