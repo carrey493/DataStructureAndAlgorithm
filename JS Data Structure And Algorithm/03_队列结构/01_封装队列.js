@@ -60,3 +60,31 @@ console.log(queue.isEmpty());//false
 console.log(queue.size());//2
 
 console.log(queue.toString());//thirdfourth
+
+//击鼓传花
+function paseGame(nameList, num) {
+    //创建一个队列
+    let queue = new Queue()
+
+    //将所有人依次加入队列
+    for (let i = 0; i < nameList.length; i++) {
+        queue.enqueue(nameList[i])
+    }
+
+    //开始数数字
+    while (queue.size() > 1) {
+        //不是num的时候吗，重新加入到队列的末尾
+        //num数字之前的人重新放入到队列的末尾
+        for (let i = 0; i < num - 1; i++) {
+            queue.enqueue(queue.dequeue())
+        }
+        //num对应的这个人直接从队列中删除 
+        queue.dequeue()
+    }
+    //获取剩下的结果
+    let endName = queue.front()
+    console.log(endName);
+    return nameList.indexOf(endName)
+}
+
+paseGame(['lisi', 'zhangsan', 'fgbfd', 'tom', 'jack', 'lisa', 'ez', 'laoshu', 'jikdf', 'dsada', 'poru', 'fjds'], 6)//fgbfd

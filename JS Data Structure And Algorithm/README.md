@@ -658,3 +658,47 @@ function Queue() {
 ```
 
 
+
+### 击鼓传花
+
+- 击鼓传花是一个常见的面试算法题.使用队列可以非常方便的实现最终的结果.
+- 原游戏规则:
+  - 班级中玩一个游戏。所有学生围成一圈,从某位同学手里开始向旁边的同学传一束花.- 这个时候某个人(比如班长),在击鼓,鼓声停下的一颗,花落在谁手里,谁就出来表演节目.
+- 修改游戏规则:
+  - 我们来修改一下这个游戏规则.
+  - 几个朋友一起玩一个游戏,围成一圈，开始数数,数到某个数字的人自动淘汰.
+  - 最后剩下的这个人会获得胜利,请问最后剩下的是原来在哪一个位置上的人?
+- 封装一个基于队列的函数
+
+  - 参数:所有参与人的姓名,基于的数字
+  - 结果:最终剩下的一人的姓名
+
+```js
+//击鼓传花
+function paseGame(nameList, num) {
+    //创建一个队列
+    let queue = new Queue()
+
+    //将所有人依次加入队列
+    for (let i = 0; i < nameList.length; i++) {
+        queue.enqueue(nameList[i])
+    }
+
+    //开始数数字
+    while (queue.size() > 1) {
+        //不是num的时候吗，重新加入到队列的末尾
+        //num数字之前的人重新放入到队列的末尾
+        for (let i = 0; i < num - 1; i++) {
+            queue.enqueue(queue.dequeue())
+        }
+        //num对应的这个人直接从队列中删除 
+        queue.dequeue()
+    }
+    //获取剩下的结果
+    let endName = queue.front()
+    console.log(endName);
+    return nameList.indexOf(endName)
+}
+
+paseGame(['lisi', 'zhangsan', 'fgbfd', 'tom', 'jack', 'lisa', 'ez', 'laoshu', 'jikdf', 'dsada', 'poru', 'fjds'], 6)//fgbfd
+```
