@@ -702,3 +702,106 @@ function paseGame(nameList, num) {
 
 paseGame(['lisi', 'zhangsan', 'fgbfd', 'tom', 'jack', 'lisa', 'ez', 'laoshu', 'jikdf', 'dsada', 'poru', 'fjds'], 6)//fgbfd
 ```
+
+### 优先级队列
+
+优先级队列的特点:
+- 我们知道,普通的队列插入一个元素,数据会被放在后端.并且需要前面所有的元素都处理完成后才会处理前面的数据.
+- 但是优先级队列,在插入一个元素的时候会考虑该数
+据的优先级.
+- 和其他数据优先级进行比较.
+- 比较完成后,可以得出这个元素在队列中正确的位置
+- 其他处理方式,和基本队列的处理方式一样.
+
+优先级队列主要考虑的问题:
+- 每个元素不再只是一个数据,而且包含数据的优先级
+- 在添加方式中,根据优先级放入正确的位置.
+
+优先级队列的应用:
+- 一个现实的例子就是机场登机的顺序
+  - 头等舱和商务舱乘客的优先级要高于经济舱乘客。
+  - 在有些国家，老年人和孕妇（或带小孩的妇女）登机时也享有高于其他乘客的优先级。
+- 另一个现实中的例子是医院的（急诊科)候诊室。
+  - 医生会优先处理病情比较严重的患者。
+  - 当然,一般情况下是按照排号的顺序。
+- 计算机中,我们也可以通过优先级队列来重新排序队列中任务的顺序
+  - 比如每个线程处理的任务重要性不同,我们可以通过优先级的大小,来决定该线程在队列中被处理的次序.
+
+#### 优先级队列的实现
+
+- 现优先级队列相对队列主要有两方面需要考虑:
+  - 1)封装元素和优先级放在一起(可以封装一个新的构造函数)
+  - 2)添加元素时,将新插入元素的优先级和队列中已经存在的元素优先级进行比较,以获得自己正确的位置.
+```js
+//封装优先级队列
+function PriorityQueue() {
+    //在PriorityQueue重新创建了一个类
+    function QueueElemnt(element, priority) {
+        this.element = element
+        this.priority = priority
+    }
+
+    //封装属性
+    this.items = []
+
+    //1.实现插入方法
+    PriorityQueue.prototype.enqueue = function (element, priority) {
+        //创建QueueElement对象
+        let queueElemnt = new QueueElemnt(element, priority)
+
+        //判断队列是否为空
+        if (this.items.length === 0) {
+            this.items.push(queueElemnt)
+        } else {
+            let added = false
+            for (let i = 0; i < this.items.length; i++) {
+                if (queueElemnt.priority < this.items[i].priority) {
+                    this.items.splice(i, 0, queueElemnt)
+                    added = true
+                    break
+                }
+            }
+            if (!added) {
+                this.items.push(queueElemnt)
+            }
+        }
+    }
+
+    //2.从队列中删除前端元素
+    PriorityQueue.prototype.dequeue = function () {
+        return this.items.shift()
+    }
+
+    //3.查看前端元素
+    PriorityQueue.prototype.front = function () {
+        return this.items[0]
+    }
+
+    //4.查看队列是否为空
+    PriorityQueue.prototype.isEmpty = function () {
+        return this.items.length === 0
+    }
+
+    //5.查看队列中元素的个数
+    PriorityQueue.prototype.size = function () {
+        return this.items.length
+    }
+
+    //6.toString方法
+    PriorityQueue.prototype.toString = function () {
+        let resultString = ''
+        for (let i = 0; i < this.items.length; i++) {
+            resultString += this.items[i] + ''
+        }
+        return resultString
+    }
+}
+
+// 测试代码
+let pq = new PriorityQueue()
+pq.enqueue('abc', 111)
+pq.enqueue('cba', 151)
+pq.enqueue('nba', 66)
+pq.enqueue('wba', 856)
+console.log(pq);
+```
