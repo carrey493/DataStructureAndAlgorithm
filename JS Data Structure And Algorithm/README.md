@@ -845,5 +845,27 @@ console.log(pq);
 - 链表的火车结构:
 ![](https://img2022.cnblogs.com/blog/2332774/202208/2332774-20220807171231729-1707842191.png)
 
+### 四.链表结构的封装
 
+- 我们先来创建一个链表类
+```js
+// 封装链表类
 
+function LinkList() {
+    //内部类：节点类
+    function Node(data) {
+        this.data = data
+        this.next = null
+    }
+
+    //属性
+    this.head = null
+    this.length = 0
+}
+```
+
+- 代码解析:
+  - 封装LinkedList的类,用于表示我们的链表结构.(和Java中的链表同名,不同Java中的这个类是一个双向链表,后面我们会讲解双向链表)
+  - 在LinkedList类中有一个Node类用于封装每一个节点上的信息.(和优先级队列的封装一样)
+  - 链表中我们保存两个属性一个是链表的长度,一个是链表中第一个节点.
+  - 当然,还有很多链表的操作方法.我们放在下一节中学习.
