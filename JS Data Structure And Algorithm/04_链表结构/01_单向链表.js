@@ -1,6 +1,6 @@
 // 封装链表类
 
-function LinkList() {
+function LinkedList() {
     //内部类：节点类
     function Node(data) {
         this.data = data
@@ -10,4 +10,25 @@ function LinkList() {
     //属性
     this.head = null
     this.length = 0
+
+    //1.追加方法
+    LinkedList.prototype.append = function (data) {
+        //1.创建一个新节点
+        let newNode = new Node()
+        //2.判断是否添加的是第一个节点
+        if (this.data === 0) {
+            //2.1是第一个节点
+            this.head = newNode
+        } else {
+            //2.2不是第一个节点
+            let current = this.head
+            while (current.next) {
+                current = current.next
+            }
+            //2.3最后节点的next指向新的节点
+            current.next = newNode
+        }
+        //3.节点长度加一
+        this.length += 1
+    }
 }

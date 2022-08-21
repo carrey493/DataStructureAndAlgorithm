@@ -884,3 +884,33 @@ function LinkList() {
   - toString():由于列表项使用了Node类，就需要重写继承自JavaScript对象默认的toString方法，让其只输出元素的值。
 - 整体你会发现操作方法和数组非常类似,因为链表本身就是一种可以代替数组的结构.
 
+#### 1.append方法实现
+- 向链表尾部追加数据可能有两种情况:
+  - 链表本身为空,新添加的数据时唯一的节点.
+  - 链表不为空,需要向其他节点后面追加节点.
+
+![](https://img2022.cnblogs.com/blog/2332774/202208/2332774-20220821231342412-1464378069.png)
+
+```js
+//1.追加方法
+    LinkedList.prototype.append = function (data) {
+        //1.创建一个新节点
+        let newNode = new Node()
+        //2.判断是否添加的是第一个节点
+        if (this.data === 0) {
+            //2.1是第一个节点
+            this.head = newNode
+        } else {
+            //2.2不是第一个节点
+            let current = this.head
+            while (current.next) {
+                current = current.next
+            }
+            //2.3最后节点的next指向新的节点
+            current.next = newNode
+        }
+        //3.节点长度加一
+        this.length += 1
+    }
+```
+
