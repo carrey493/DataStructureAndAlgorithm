@@ -893,24 +893,47 @@ function LinkList() {
 
 ```js
 //1.追加方法
-    LinkedList.prototype.append = function (data) {
-        //1.创建一个新节点
-        let newNode = new Node()
-        //2.判断是否添加的是第一个节点
-        if (this.data === 0) {
-            //2.1是第一个节点
-            this.head = newNode
-        } else {
-            //2.2不是第一个节点
-            let current = this.head
-            while (current.next) {
-                current = current.next
-            }
-            //2.3最后节点的next指向新的节点
-            current.next = newNode
+LinkedList.prototype.append = function (data) {
+    //1.创建一个新节点
+    var newNode = new Node(data)
+    //2.判断是否添加的是第一个节点
+    if (this.length === 0) {
+        //2.1是第一个节点
+        this.head = newNode
+    } else {
+        //2.2不是第一个节点
+        let current = this.head
+        while (current.next) {
+            current = current.next
         }
-        //3.节点长度加一
-        this.length += 1
+        //2.3最后节点的next指向新的节点
+        current.next = newNode
     }
+    //3.节点长度加一
+    this.length += 1
+}
 ```
 
+#### 2.toString方法实现
+我们先来实现一下链表的toString方法,这样会方便测试上面的添加代码
+- 该方法比较简单,主要是获取每一个元素
+- 还是从head开头,因为获取链表的任何元素都必须从第一个节点开头.
+- 循环遍历每一个节点,并且取出其中的element,拼接成字符串.
+- 将最终字符串返回.
+
+```js
+//2.toString方法
+LinkedList.prototype.toString = function () {
+  //1.定义变量
+  var current = this.head
+  var listString = ''
+
+  //2.循环获取一个节点
+  while (current) {
+      listString += current.data + ''
+      current = current.next
+  }
+
+  return listString
+}
+```
