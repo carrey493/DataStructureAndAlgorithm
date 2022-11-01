@@ -46,6 +46,36 @@ function LinkedList() {
 
         return listString
     }
+
+    //3.insert方法
+    LinkedList.prototype.insert = function (position, data) {
+        //1.对position进行越界判断
+        if (position < 0 || position < this.length) return false
+
+        //2.根据data创建newNode
+        let newNode = new Node(data)
+
+        //3.插入数据:看位置是否是第一个
+        if (position === 0) {
+            newNode.next = this.head
+            this.head = newNode
+        } else {
+            let index = 0
+            let current = this.head
+            let previous = null
+            while (index++ < position) {
+                previous = current
+                current = current.next
+            }
+            newNode.next = current
+            previous.next = newNode
+        }
+
+        //4.长度+1
+        this.length += 1
+
+        return true
+    }
 }
 
 //1.创建linkList

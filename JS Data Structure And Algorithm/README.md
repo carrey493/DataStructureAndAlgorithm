@@ -937,3 +937,52 @@ LinkedList.prototype.toString = function () {
   return listString
 }
 ```
+
+#### 3.insert方法实现
+
+接下来实现另外一个添加数据的方法:在任意位置插入数据.
+
+添加到第一个位置:
+- 添加到第一个位置,表示新添加的节点是头,就需要将原来的头节点,作为新节点的next
+- 另外这个时候的head应该指向新节点.
+
+![](https://img2022.cnblogs.com/blog/2332774/202211/2332774-20221102002949829-1435050500.png)
+
+
+添加到其他位置:
+- 如果是添加到其他位置,就需要先找到这个节点位置了.
+- 我们通过while循环,一点点向下找.并且在这个过程中保存上一个节点和下一个节点.
+- 找到正确的位置后,将新节点的next指向下一个节点,将上一个节点的next指向新的节点.
+
+![](https://img2022.cnblogs.com/blog/2332774/202211/2332774-20221102003012464-2106615230.png)
+
+```js
+LinkedList.prototype.insert = function (position, data) {
+    //1.对position进行越界判断
+    if (position < 0 || position < this.length) return false
+
+    //2.根据data创建newNode
+    let newNode = new Node(data)
+
+    //3.插入数据:看位置是否是第一个
+    if (position === 0) {
+        newNode.next = this.head
+        this.head = newNode
+    } else {
+        let index = 0
+        let current = this.head
+        let previous = null
+        while (index++ < position) {
+            previous = current
+            current = current.next
+        }
+        newNode.next = current
+        previous.next = newNode
+    }
+
+    //4.长度+1
+    this.length += 1
+
+    return true
+}
+```
