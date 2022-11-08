@@ -959,7 +959,7 @@ LinkedList.prototype.toString = function () {
 ```js
 LinkedList.prototype.insert = function (position, data) {
     //1.对position进行越界判断
-    if (position < 0 || position < this.length) return false
+    if (position < 0 || position > this.length) return false
 
     //2.根据data创建newNode
     let newNode = new Node(data)
@@ -984,5 +984,25 @@ LinkedList.prototype.insert = function (position, data) {
     this.length += 1
 
     return true
+}
+```
+
+#### 4.get方法实现
+
+传入一个要获取的位置，返回对应的数据信息
+
+```js
+//4.get方法
+LinkedList.prototype.get = function (position) {
+    //1.越界判断
+    if (position < 0 || position >= this.length) return null
+
+    //2.获取对应的数据
+    let current = this.head
+    let index = 0
+    while (index++ < position) {
+        current = current.next
+    }
+    return current.data
 }
 ```

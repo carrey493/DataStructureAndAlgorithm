@@ -50,7 +50,7 @@ function LinkedList() {
     //3.insert方法
     LinkedList.prototype.insert = function (position, data) {
         //1.对position进行越界判断
-        if (position < 0 || position < this.length) return false
+        if (position < 0 || position > this.length) return false
 
         //2.根据data创建newNode
         let newNode = new Node(data)
@@ -76,6 +76,20 @@ function LinkedList() {
 
         return true
     }
+
+    //4.get方法
+    LinkedList.prototype.get = function (position) {
+        //1.越界判断
+        if (position < 0 || position >= this.length) return null
+
+        //2.获取对应的数据
+        let current = this.head
+        let index = 0
+        while (index++ < position) {
+            current = current.next
+        }
+        return current.data
+    }
 }
 
 //1.创建linkList
@@ -92,3 +106,17 @@ console.log(list);
     length: 3
   } */
 console.log(list.toString());//abccbanba
+
+//3.测试insert方法
+list.insert(0, 'aaa')
+list.insert(3, 'opi')
+list.insert(5, 'clo')
+console.log(list);
+/* 
+LinkedList {
+    head: Node { data: 'aaa', next: Node { data: 'abc', next: [Node] } },
+    length: 6
+  } 
+*/
+console.log(list.toString());//aaaabccbaopinbaclo
+console.log(list.get(5));//clo
