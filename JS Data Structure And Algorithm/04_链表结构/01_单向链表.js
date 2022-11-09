@@ -90,6 +90,25 @@ function LinkedList() {
         }
         return current.data
     }
+
+    //5.indexOf方法
+    LinkedList.prototype.indexOf = function (data) {
+        //1.定义变量
+        let current = this.head
+        let index = 0
+
+        //2.开始查找
+        while (current) {
+            if (current.data === data) {
+                return index
+            }
+            current = current.next
+            index += 1
+        }
+
+        //3.最后没有找到返回-1
+        return -1
+    }
 }
 
 //1.创建linkList
@@ -120,3 +139,6 @@ LinkedList {
 */
 console.log(list.toString());//aaaabccbaopinbaclo
 console.log(list.get(5));//clo
+
+console.log(list.indexOf('opi'));//3
+console.log(list.indexOf('cba'));//2

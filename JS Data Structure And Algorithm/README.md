@@ -1006,3 +1006,29 @@ LinkedList.prototype.get = function (position) {
     return current.data
 }
 ```
+
+#### 5.indexOf方法实现
+
+- 判断传入的数据是否与当前数据相同
+- 相同则返回索引值，负责当前元素指向下一个元素
+- 如果未找到则返回-1
+
+```js
+LinkedList.prototype.indexOf = function (data) {
+    //1.定义变量
+    let current = this.head
+    let index = 0
+
+    //2.开始查找
+    while (current) {
+        if (current.data === data) {
+            return index
+        }
+        current = current.next
+        index += 1
+    }
+
+    //3.最后没有找到返回-1
+    return -1
+}
+```
