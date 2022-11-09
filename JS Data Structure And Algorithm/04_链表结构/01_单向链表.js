@@ -109,6 +109,23 @@ function LinkedList() {
         //3.最后没有找到返回-1
         return -1
     }
+
+    //6.update方法
+    LinkedList.prototype.update = function (position, newData) {
+        //1.对position进行越界判断
+        if (position < 0 || position >= this.length) return false
+
+        //2.查找正确的节点
+        let current = this.head
+        let index = 0
+        while (index++ < position) {
+            current = current.next
+        }
+
+        //3.将position位置的node修改成为newData
+        current.data = newData
+        return true
+    }
 }
 
 //1.创建linkList
@@ -142,3 +159,12 @@ console.log(list.get(5));//clo
 
 console.log(list.indexOf('opi'));//3
 console.log(list.indexOf('cba'));//2
+
+console.log(list.update(0,'qqqqqq'));
+console.log(list);
+/* 
+LinkedList {
+    head: Node { data: 'qqqqqq', next: Node { data: 'abc', next: [Node] } },
+    length: 6
+  } 
+*/

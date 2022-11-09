@@ -877,7 +877,7 @@ function LinkList() {
   - insert(position, element):向列表的特定位置插入一个新的项。
   - get(position):获取对应位置的元素
   - indexOf(element):返回元素在列表中的索引。如果列表中没有该元素则返回-1。
-  - update(position):修改某个位置的元素
+  - update(position,element):修改某个位置的元素
   - removeAt(position):从列表的特定位置移除一项。- remove(element):从列表中移除一项。
   - isEmpty):如果链表中不包含任何元素，返回true，如果链表长度大于0则返回false.
   - size():返回链表包含的元素个数。与数组的length属性类似。
@@ -1030,5 +1030,30 @@ LinkedList.prototype.indexOf = function (data) {
 
     //3.最后没有找到返回-1
     return -1
+}
+```
+
+#### 6.update方法实现
+
+- 越界判断
+- 根据传入的位置与元素索引判断是否相同
+- 找到相同则修改元素并返回true
+
+```js
+//6.update方法
+LinkedList.prototype.update = function (position, newData) {
+    //1.对position进行越界判断
+    if (position < 0 || position >= this.length) return false
+
+    //2.查找正确的节点
+    let current = this.head
+    let index = 0
+    while (index++ < position) {
+        current = current.next
+    }
+
+    //3.将position位置的node修改成为newData
+    current.data = newData
+    return true
 }
 ```
