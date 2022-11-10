@@ -126,6 +126,29 @@ function LinkedList() {
         current.data = newData
         return true
     }
+
+    //7.removeAt()方法
+    LinkedList.prototype.removeAt = function (position) {
+        //1.对position进行越界判断
+        if (position < 0 || position >= this.length) return false
+
+        //2.判断是否删除的是第一个节点
+        let current = this.head
+        if (position === 0) {
+            this.head = this.head.next
+        } else {
+            let index = 0
+            let previous = null
+            while (index++ < position) {
+                previous = current
+                current = current.next
+            }
+            //前一个节点的next指向current的next即可
+            previous.next = current.next
+        }
+        this.length -= 1
+        return current.data
+    }
 }
 
 //1.创建linkList
@@ -160,11 +183,20 @@ console.log(list.get(5));//clo
 console.log(list.indexOf('opi'));//3
 console.log(list.indexOf('cba'));//2
 
-console.log(list.update(0,'qqqqqq'));
+console.log(list.update(0, 'qqqqqq'));
 console.log(list);
 /* 
 LinkedList {
     head: Node { data: 'qqqqqq', next: Node { data: 'abc', next: [Node] } },
     length: 6
   } 
+*/
+console.log(list.removeAt(0));
+console.log(list);
+/* 
+qqqqqq
+LinkedList {
+  head: Node { data: 'abc', next: Node { data: 'cba', next: [Node] } },
+  length: 5
+}
 */

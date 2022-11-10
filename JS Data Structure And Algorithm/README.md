@@ -1035,7 +1035,7 @@ LinkedList.prototype.indexOf = function (data) {
 
 #### 6.update方法实现
 
-- 越界判断
+- 首先进行越界判断，传入的更新元素位置不能过大或者过小(负数)
 - 根据传入的位置与元素索引判断是否相同
 - 找到相同则修改元素并返回true
 
@@ -1055,5 +1055,35 @@ LinkedList.prototype.update = function (position, newData) {
     //3.将position位置的node修改成为newData
     current.data = newData
     return true
+}
+```
+
+#### 7.removeAt方法实现
+
+- 首先进行越界判断，传入的移除元素位置不能过大或者过小(负数)
+- 判断是否删除的是第一个节点以及删除是否是最后一个节点的特殊情况
+- 前一个节点的next指向current的next即可
+
+```js
+LinkedList.prototype.removeAt = function (position) {
+    //1.对position进行越界判断
+    if (position < 0 || position >= this.length) return false
+
+    //2.判断是否删除的是第一个节点
+    let current = this.head
+    if (position === 0) {
+        this.head = this.head.next
+    } else {
+        let index = 0
+        let previous = null
+        while (index++ < position) {
+            previous = current
+            current = current.next
+        }
+        //前一个节点的next指向current的next即可
+        previous.next = current.next
+    }
+    this.length -= 1
+    return current.data
 }
 ```
