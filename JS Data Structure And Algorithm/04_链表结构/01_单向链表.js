@@ -158,6 +158,16 @@ function LinkedList() {
         this.length -= 1
         return this.removeAt(position)
     }
+
+    //9.isEmpty方法
+    LinkedList.prototype.isEmpty = function () {
+        return this.length === 0
+    }
+
+    //10.size方法
+    LinkedList.prototype.size = function () {
+        return this.length
+    }
 }
 
 //1.创建linkList
@@ -227,3 +237,5 @@ LinkedList {
   length: 3
 }
 */
+console.log(list.isEmpty());//false
+console.log(list.size());//

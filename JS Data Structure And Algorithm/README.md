@@ -1102,3 +1102,20 @@ LinkedList.prototype.remove = function (data) {
     return this.removeAt(position)
 }
 ```
+根据链表的长度判断
+#### 9.isEmpty方法
+
+```js
+LinkedList.prototype.isEmpty = function () {
+    return this.length === 0
+}
+```
+    
+
+#### 10.size方法
+
+```js
+LinkedList.prototype.size = function () {
+    return this.length
+}
+```
