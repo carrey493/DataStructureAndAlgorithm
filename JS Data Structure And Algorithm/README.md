@@ -1087,3 +1087,18 @@ LinkedList.prototype.removeAt = function (position) {
     return current.data
 }
 ```
+
+#### 8.remove方法
+
+- 首先使用已封装好的indexOf方法获取数据位置
+- 再使用已封装好的removeAt删除对应元素
+
+```js
+LinkedList.prototype.remove = function (data) {
+    //1.根据data获取在列表中的位置
+    let position = this.indexOf(data)
+    //2.根据位置信息删除节点
+    this.length -= 1
+    return this.removeAt(position)
+}
+```

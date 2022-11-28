@@ -130,7 +130,7 @@ function LinkedList() {
     //7.removeAt()方法
     LinkedList.prototype.removeAt = function (position) {
         //1.对position进行越界判断
-        if (position < 0 || position >= this.length) return false
+        if (position < 0 || position >= this.length) return null
 
         //2.判断是否删除的是第一个节点
         let current = this.head
@@ -148,6 +148,15 @@ function LinkedList() {
         }
         this.length -= 1
         return current.data
+    }
+
+    //8.remove方法
+    LinkedList.prototype.remove = function (data) {
+        //1.根据data获取在列表中的位置
+        let position = this.indexOf(data)
+        //2.根据位置信息删除节点
+        this.length -= 1
+        return this.removeAt(position)
     }
 }
 
@@ -198,5 +207,23 @@ qqqqqq
 LinkedList {
   head: Node { data: 'abc', next: Node { data: 'cba', next: [Node] } },
   length: 5
+}
+*/
+console.log(list.removeAt(3));
+console.log(list);
+/* 
+nba
+LinkedList {
+  head: Node { data: 'abc', next: Node { data: 'cba', next: [Node] } },
+  length: 4
+}
+*/
+console.log(list.remove('abc'));
+console.log(list);
+/* 
+abc
+LinkedList {
+  head: Node { data: 'cba', next: Node { data: 'opi', next: [Node] } },
+  length: 3
 }
 */
