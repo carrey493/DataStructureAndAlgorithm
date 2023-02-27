@@ -1119,3 +1119,61 @@ LinkedList.prototype.size = function () {
     return this.length
 }
 ```
+
+### 六.认识双向链表
+
+单向链表
+
+- 只能`从头遍历`到尾或者从`尾遍历到头`(一般从头到尾)
+- 也就是链表相连的过程是`单向`的.
+- 实现的原理是上一个链表中有一个指向下一个的`引用`.
+
+单向链表有一个比较明显的缺点:
+
+> 我们可以轻松的到达`下一个节点`,但是回到`前一个节点`
+是很难的.但是,在实际开发中,经常会遇到需要回到上一个节点的情况
+
+>`举个例子`:假设一个文本编辑用`链表`来存储文本.每一行用一个`String对象`存储在`链表的一个节点`中.当编辑器用户`向下移动光标`时,链表直接操作到`下一个节点`即可.但是当用于将光标`向上移动`呢?这个时候为了回到`上一个节点`,我们可能需要`从first开始`,依次走到想要的节点上.
+
+双向链表
+
+- 既可以`从头遍历到尾`,又可以`从尾遍历到头`
+- 也就是链表相连的过程是`双向`的.那么它的实现原理,你能猜到吗?
+- 一个节点既有`向前连接的引用`,也有一个`向后连接的引用`.
+- 双向链表可以有效的解决单向链表中提到的问题.
+
+双向链表有什么缺点呢?
+
+- 每次在`插入或删除`某个节点时,需要处理四个引用,而
+不是两个.也就是实现起来要困难一些
+- 并且相当于单向链表,必然占用`内存空间`更大一些.
+- 但是这些缺点和我们使用起来的方便程度相比,是微不足道的.
+
+双向链表长什么样子呢?
+
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b4b11abeadee491ea0842c4baf936a0a~tplv-k3u1fbpfcp-watermark.image?)
+
+双向链表的特点:
+- 可以使用一个head和一个tail分别指向头部和尾部的节点
+= 每个节点都由三部分组成:前一个节点的指针(prev)/保存的元素(item)/后一个节点的指针(next)
+- 双向链表的第一个节点的prev是null
+- 双向链表的最后的节点的next是null
+
+![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f138c09ddddf43309f30abbdc033dd0d~tplv-k3u1fbpfcp-watermark.image?)
+
+### 七.封装双向链表
+
+```js
+function DoublyLinkedList() {
+  //内部类：节点类
+  function Node(data) {
+    this.data = data;
+    this.prev = null;
+    this.next = null;
+  }
+  // 属性
+  this.head = null;
+  this.tail = null;
+  this.length = 0;
+}
+```
