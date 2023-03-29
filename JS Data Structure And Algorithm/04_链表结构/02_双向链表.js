@@ -93,6 +93,25 @@ function DoublyLinkedList() {
       return true;
     }
   };
+
+  // 4.get方法
+  DoublyLinkedList.prototype.get = function (position) {
+    //1.越界判断
+    if (position < 0 || position >= this.length) return false;
+    //2.获取元素
+    let current = this.head;
+    let index = 0;
+
+   /* this.length / 2  > position //从头向后遍历
+   this.length / 2  < position //从后向前遍历*/
+
+
+    while (index++ < position) {
+      current = current.next;
+    }
+
+    return current.data;
+  };
 }
 
 let list = new DoublyLinkedList();
@@ -101,8 +120,9 @@ list.append("opi");
 list.append("yui");
 console.log(list);
 console.log(list.toString()); //abc opi yui
-list.insert(0,'qqq')
-list.insert(4,'opidd')
-list.insert(2,'piaq')
+list.insert(0, "qqq");
+list.insert(4, "opidd");
+list.insert(2, "piaq");
 console.log(list);
-console.log(list.toString()); //qqq abc piaq opi yui opidd 
+console.log(list.toString()); //qqq abc piaq opi yui opidd
+console.log(list.get(3)); //opi
