@@ -1223,13 +1223,14 @@ function DoublyLinkedList() {
 我们先来认识一下,双向链表中应该有哪些常见的操作
 
 - append(element):向列表尾部添加一个新的项
-- insert(position, element):向列表的特定位置插入一个新的项。
+- insert(position, element):向列表的特定位置插入一个新的项
 - get(position):获取对应位置的元素
-- indexOf(element):返回元素在列表中的索引。如果列表中没有该元素则返回-1。
+- indexOf(element):返回元素在列表中的索引。如果列表中没有该元素则返回-1
 - update(position, element):修改某个位置的元素
-- removeAt(position):从列表的特定位置移除一项。- ----- remove(element):从列表中移除一项。
+- removeAt(position):从列表的特定位置移除一项。
+- remove(element):从列表中移除一项。
 - isEmpty():如果链表中不包含任何元素，返回 true，如果链表长度大于 0 则返回 false.size():返回链表包含的元素个数。与数组的 length 属性类似。
-- toString():由于列表项使用了 Node 类，就需要重写继承自 JavaScript 对象默认的 toString 方法，让其只输出元素的值。
+- toString():由于列表项使用了 Node 类，就需要重写继承自 JavaScript 对象默认的 toString 方法，让其只输出元素的值
 - forwardString():返回正向遍历的节点字符串形式
 - backwordString():返回反向遍历的节点字符串形式
 
