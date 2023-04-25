@@ -102,15 +102,32 @@ function DoublyLinkedList() {
     let current = this.head;
     let index = 0;
 
-   /* this.length / 2  > position //从头向后遍历
+    /* this.length / 2  > position //从头向后遍历
    this.length / 2  < position //从后向前遍历*/
-
 
     while (index++ < position) {
       current = current.next;
     }
 
     return current.data;
+  };
+
+  //5.indexOf方法
+  DoublyLinkedList.prototype.indexOf = function (data) {
+    //1.定义变量
+    let current = this.head;
+    let index = 0;
+
+    //2.查找和data相同的节点
+    while (current) {
+      if (current.data === data) {
+        return index;
+      }
+      current = current.next;
+      index += 1;
+    }
+
+    return -1;
   };
 }
 
@@ -126,3 +143,5 @@ list.insert(2, "piaq");
 console.log(list);
 console.log(list.toString()); //qqq abc piaq opi yui opidd
 console.log(list.get(3)); //opi
+console.log(list.indexOf('opi'));//3
+console.log(list.indexOf('opia'));//-1
