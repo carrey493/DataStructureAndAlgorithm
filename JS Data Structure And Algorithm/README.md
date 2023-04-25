@@ -1,5 +1,7 @@
 ## JS 数据结构与算法概述
 
+> 学习地址：https://www.bilibili.com/video/BV1yD4y127vy
+
 - 数据结构: 计算机存储, 组织数据的方式, 就像锅碗瓢盆
 
 - 算法: 一系列解决问题的清晰指令, 就像食谱
@@ -1327,11 +1329,30 @@ DoublyLinkedList.prototype.get = function (position) {
   /* this.length / 2  > position //从头向后遍历
   this.length / 2  < position //从后向前遍历*/
 
-
   while (index++ < position) {
     current = current.next;
   }
 
   return current.data;
+};
+```
+
+#### 5.indexOf方法
+```js
+DoublyLinkedList.prototype.indexOf = function (data) {
+  //1.定义变量
+  let current = this.head;
+  let index = 0;
+
+  //2.查找和data相同的节点
+  while (current) {
+    if (current.data === data) {
+      return index;
+    }
+    current = current.next;
+    index += 1;
+  }
+
+  return -1;
 };
 ```
