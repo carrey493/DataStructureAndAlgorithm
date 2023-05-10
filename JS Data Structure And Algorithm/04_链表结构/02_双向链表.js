@@ -129,6 +129,93 @@ function DoublyLinkedList() {
 
     return -1;
   };
+
+  //6.update方法
+  DoublyLinkedList.prototype.update = function (position, newData) {
+    //1.越界判断
+    if (position < 0 || position >= this.length) return false;
+
+    //2.寻找正确的节点
+    let current = this.head;
+    let index = 0;
+    while (index++ < position) {
+      current = current.next;
+    }
+
+    //3.修改找到节点的信息
+    current.data = newData;
+    return true;
+  };
+
+  //7.removeAt方法
+  DoublyLinkedList.prototype.remveAt = function (position) {
+    //1.越界判断
+    if (position < 0 || position >= this.length) return null;
+    if (this.length === 0) return null;
+
+    //2.判断是否只有一个节点
+    let current = this.head;
+
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      //判断是否删除的是第一个节点
+      if (position === 0) {
+        this.head.next.prev = null;
+        this.head = this.head.next;
+      } else if (position === this.length - 1) {
+        console.log(55555555);
+        //表示删除最后一个节点
+        current = this.tail;
+        this.tail.prev.next = null;
+        this.tail = this.tail.prev;
+      } else {
+        console.log(55555555);
+        let index = 0;
+
+        while (index++ < position) {
+          current = current.next;
+        }
+        current.prev.next = current.next;
+        current.next.prev = current.prev;
+      }
+    }
+
+    //3.length - 1
+    this.length -= 1;
+
+    return current.data;
+  };
+
+  //8.remove方法
+  DoublyLinkedList.prototype.remove = function (data) {
+    //1.根据data获取下标值
+    let index = this.indexOf(data);
+
+    //2.根据index删除对应节点
+    return this.remveAt(index);
+  };
+
+  //9.isEmpty方法
+  DoublyLinkedList.prototype.isEmpty = function () {
+    return this.length === 0;
+  };
+
+  //10.size方法
+  DoublyLinkedList.prototype.size = function () {
+    return this.length;
+  };
+
+  //11.获取链表的第一个元素
+  DoublyLinkedList.prototype.getHead = function () {
+    return this.head.data;
+  };
+
+  //12.获取链表的最后有一个元素
+  DoublyLinkedList.prototype.getTail = function () {
+    return this.tail.data;
+  };
 }
 
 let list = new DoublyLinkedList();
@@ -143,5 +230,10 @@ list.insert(2, "piaq");
 console.log(list);
 console.log(list.toString()); //qqq abc piaq opi yui opidd
 console.log(list.get(3)); //opi
-console.log(list.indexOf('opi'));//3
-console.log(list.indexOf('opia'));//-1
+console.log(list.indexOf("opi")); //3
+console.log(list.indexOf("opia")); //-1
+console.log(list.toString());
+console.log(list.update(0, "oooo"));
+console.log(list.toString());
+list.remveAt(0);
+console.log(list.toString());
