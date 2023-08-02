@@ -1528,3 +1528,88 @@ Set.prototype.values = function () {
   return Object.keys(this.items);
 };
 ```
+
+### 三.集合间操作
+
+集合间通常有如下操作:
+
+- 并集:对于给定的两个集合，返回一个包含两个集合中所有元素的新集合.
+- 交集:对于给定的两个集合，返回一个包含两个集合中共有元素的新集合.
+- 差集∶对于给定的两个集合，返回一个包含所有存在于第一个集合且不存在于第二个集合的元素的新集合。
+- 子集:验证一个给定集合是否是另一集合的子集。
+
+![](https://img2023.cnblogs.com/blog/2332774/202308/2332774-20230803000307461-1458466103.png)
+
+1. **并集**
+
+并集：
+- 并集其实对应就是数学中并集的概念
+- 集合A和B的疟集，表示为AUB。
+- 意思是×(元素)存在于A中，或×存在于B中。
+
+代码解析:
+
+- 首先需要创建一个新的集合，代表两个集合的并集。
+- 遍历集合1中所有的值,并且添加到新集合中。
+- 遍历集合2中所有的值,并且添加到新集合中。
+- 将最终的新集合返回。
+
+```js
+Set.prototype.union = function (otherSet) {
+  /* 
+  this: 集合A
+  otherSet: 集合B
+  */
+  // 1. 创建新集合
+  let unionSet = new Set();
+  // 2. 将A集合中所有的元素添加到新集合中
+  let values = this.values();
+  for (let i = 0; i < values.length; i++) {
+    unionSet.add(values[i]);
+  }
+  // 3. 去除B集合的元素，判断是否需要加到新集合中
+  values = otherSet.values();
+  for (let i = 0; i < values.length; i++) {
+    unionSet.add(values[i]);
+  }
+
+  return unionSet;
+};
+```
+
+2. **交集**
+
+交集：
+
+- 交集其实对应的就是数学中交集的概念
+- 集合A和B的交集，表示为A∩B，定义如下︰A B ={c ∈ A Ax ∈ B}
+- 意思是×(元素)存在于A中，且x存在于B中。
+
+代码解析
+
+- 创建一个新的集合.
+- 遍历集合1中的所有元素,判断是否该元素在集合2中
+- 同时在集合2中,将该元素加入到新集合中.
+- 将最终的新集合返回.
+
+```js
+Set.prototype.intersection = function (otherSet) {
+  /* 
+  this: 集合A
+  otherSet: 集合B
+  */
+  // 1. 创建新集合
+  let intersectionSet = new Set();
+
+  // 2. 从A中取出一个元素，判断是否同时存在于集合B中，存在放入新集合中。
+  let values = this.values();
+  for (let i = 0; i < values.length; i++) {
+    let item = values[i];
+    if (otherSet.has(item)) {
+      intersectionSet.add(item);
+    }
+  }
+
+  return intersectionSet;
+};
+```

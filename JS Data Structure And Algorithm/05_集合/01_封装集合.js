@@ -45,4 +45,82 @@ function Set() {
   Set.prototype.values = function () {
     return Object.keys(this.items);
   };
+
+  // 集合间操作
+
+  // 1.并集
+  Set.prototype.union = function (otherSet) {
+    /* 
+    this: 集合A
+    otherSet: 集合B
+    */
+    // 1. 创建新集合
+    let unionSet = new Set();
+    // 2. 将A集合中所有的元素添加到新集合中
+    let values = this.values();
+    for (let i = 0; i < values.length; i++) {
+      unionSet.add(values[i]);
+    }
+    // 3. 去除B集合的元素，判断是否需要加到新集合中
+    values = otherSet.values();
+    for (let i = 0; i < values.length; i++) {
+      unionSet.add(values[i]);
+    }
+
+    return unionSet;
+  };
+
+  // 2. 交集
+  Set.prototype.intersection = function (otherSet) {
+    /* 
+    this: 集合A
+    otherSet: 集合B
+    */
+    // 1. 创建新集合
+    let intersectionSet = new Set();
+
+    // 2. 从A中取出一个元素，判断是否同时存在于集合B中，存在放入新集合中。
+    let values = this.values();
+    for (let i = 0; i < values.length; i++) {
+      let item = values[i];
+      if (otherSet.has(item)) {
+        intersectionSet.add(item);
+      }
+    }
+
+    return intersectionSet;
+  };
 }
+
+// 测试
+let set = new Set();
+set.add("abc");
+set.add("oef");
+set.add("abc");
+set.add("nba");
+set.add("cba");
+
+console.log(set); //Set { items: { abc: 'abc', oef: 'oef' } }
+console.log(set.values()); //[ 'abc', 'oef' ]
+
+set.remove("oef");
+console.log(set); //Set { items: { abc: 'abc', nba: 'nba', cba: 'cba' } }
+console.log(set.has("cba")); //true
+console.log(set.size()); //3
+set.clear();
+console.log(set.size()); //0
+
+let setA = new Set();
+setA.add("111");
+setA.add("222");
+
+let setB = new Set();
+setB.add("333");
+setB.add("444");
+setB.add("111");
+
+let unionSet = setA.union(setB);
+console.log(unionSet); // items: { '111': '111', '222': '222', '333': '333', '444': '444' }
+
+let intersectionSet = setA.intersection(setB);
+console.log(intersectionSet); //{ items: { '111': '111' } }
