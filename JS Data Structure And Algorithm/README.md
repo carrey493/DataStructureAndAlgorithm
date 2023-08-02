@@ -1472,4 +1472,59 @@ DoublyLinkedList.prototype.getTail = function () {
   - 2015年6月份发布的**ES6**中包含了**Set类**,所以其实我们可以不封装,直接使用它.
   - 但是这里,为了明确集合的内部实现机制,我们这里还是自己来封装一下这个Set类.
 
+### 二.集合的常见操作
 
+集合有哪些常见的操作方法呢?
+
+- add(value):向集合添加一个新的项。
+- remove(value)∶从集合移除一个值。
+- has(value):如果值在集合中，返回true，否则返回false。
+- clear()∶移除集合中的所有项。
+- size():返回集合所包含元素的数量。与数组的length属性类似。
+- values():返回一个包含集合中所有值的数组。
+
+还有一些集合其他相关的操作，暂时用不太多，这里暂不封装.我们来一个个实现这些方法,相对都比较简单.
+
+```js
+// 1. add方法
+Set.prototype.add = function (value) {
+  // 判断当前集合中是否已经包含了该元素
+  if (this.has(value)) {
+    return false;
+  }
+  // 将元素添加到集合中
+  this.items[value] = value;
+  return true;
+};
+
+// 2. has方法
+Set.prototype.has = function (value) {
+  return this.items.hasOwnProperty(value);
+};
+
+// 3. remove方法
+Set.prototype.remove = function (value) {
+  // 1. 判断该集合中是否包含该元素
+  if (!this.has(value)) {
+    return false;
+  }
+  // 2. 将元素从属性中删除
+  delete this.items[value];
+  return true;
+};
+
+// 4. clear方法
+Set.prototype.clear = function () {
+  this.items = {};
+};
+
+// 5. size方法
+Set.prototype.size = function () {
+  return Object.keys(this.items).length;
+};
+
+// 6. 获取集合所有的值
+Set.prototype.values = function () {
+  return Object.keys(this.items);
+};
+```
