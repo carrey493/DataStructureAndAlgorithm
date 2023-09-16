@@ -90,6 +90,48 @@ function Set() {
 
     return intersectionSet;
   };
+
+  // 3. 差集
+  Set.prototype.difference = function (otherSet) {
+    /* 
+    this: 集合A
+    otherset: 集合B
+    */
+
+    // 1. 创建新集合
+    let differenceSet = new Set();
+
+    // 2.取出A集合中的一个元素，判断是否同时存在于B中，若不存在B中，则添加到新集合中
+    let values = this.values();
+    for (let i = 0; i < values.length; i++) {
+      let item = values[i];
+      if (!otherSet.has(item)) {
+        differenceSet.add(item);
+      }
+    }
+    return differenceSet;
+  };
+
+  // 4. 子集
+  Set.prototype.subset = function (otherSet) {
+    /* 
+    this: 集合A
+    otherset: 集合B
+    遍历集合A中所有的元素，如果发现，集合A中的元素，在集合B中不存在，那么false
+    加果遍历完整个集合，依然没有返回false，那么返回true即可
+    */
+
+    // 1. 创建新集合
+    let values = this.values();
+    for (let i = 0; i < values.length; i++) {
+      let item = values[i];
+      if (!otherSet.has(item)) {
+        return false;
+      }
+    }
+
+    return true;
+  };
 }
 
 // 测试
@@ -124,3 +166,8 @@ console.log(unionSet); // items: { '111': '111', '222': '222', '333': '333', '44
 
 let intersectionSet = setA.intersection(setB);
 console.log(intersectionSet); //{ items: { '111': '111' } }
+
+console.log({ setA }, { setB });
+let differenceSet = setB.difference(setA);
+console.log("差集：", differenceSet);
+console.log("子集：", setA.subset(setB));

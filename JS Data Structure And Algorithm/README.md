@@ -1544,7 +1544,7 @@ Set.prototype.values = function () {
 
 并集：
 - 并集其实对应就是数学中并集的概念
-- 集合A和B的疟集，表示为AUB。
+- 集合A和B的并集，表示为AUB。
 - 意思是×(元素)存在于A中，或×存在于B中。
 
 代码解析:
@@ -1582,7 +1582,7 @@ Set.prototype.union = function (otherSet) {
 交集：
 
 - 交集其实对应的就是数学中交集的概念
-- 集合A和B的交集，表示为A∩B，定义如下︰A B ={c ∈ A Ax ∈ B}
+- 集合A和B的交集，表示为A∩B
 - 意思是×(元素)存在于A中，且x存在于B中。
 
 代码解析
@@ -1613,3 +1613,76 @@ Set.prototype.intersection = function (otherSet) {
   return intersectionSet;
 };
 ```
+
+3. **差集**
+
+差集：
+
+- 差集其实对应的就是数学中差集的概念
+- 集合A和B的差集，表示为A-B，定义如下∶
+- 意思是×(元素)存在于A中，且x不存在于B中。
+
+代码解析
+
+- 创建一个新的集合.
+- 遍历集合1中所有的元素,判断是否在集合2中.
+- 不存在于集合2中,将该元素添加到新集合中.
+- 将新集合返回
+
+
+```js
+Set.prototype.difference = function (otherSet) {
+  /* 
+  this: 集合A
+  otherset: 集合B
+  */
+
+  // 1. 创建新集合
+  let differenceSet = new Set();
+
+  // 2.取出A集合中的一个元素，判断是否同时存在于B中，若不存在B中，则添加到新集合中
+  let values = this.values();
+  for (let i = 0; i < values.length; i++) {
+    let item = values[i];
+    if (!otherSet.has(item)) {
+      differenceSet.add(item);
+    }
+  }
+  return differenceSet;
+  };
+```
+
+4. **子集**
+
+- 子集其实对应的就是数学中子集的概念
+- 集合A是B的子集（或集合B包含了A），表示为A S B
+- 意思是集合A中的每一个×(元素)，也需要存在于B中。
+
+代码解析:
+- 判断集合1是否大于集合2,如果大于，那么肯定不是集合2的子集.
+- 不大于的情况下:
+  - 判断集合1中的元素是否都在集合2中存在.
+  - 存在,那么是集合2的子集.
+  - 有一个不存在,那么不是集合2的子集.
+
+```js
+Set.prototype.subset = function (otherSet) {
+  /* 
+  this: 集合A
+  otherset: 集合B
+  遍历集合A中所有的元素，如果发现，集合A中的元素，在集合B中不存在，那么false
+  加果遍历完整个集合，依然没有返回false，那么返回true即可
+  */
+
+  // 1. 创建新集合
+  let values = this.values();
+  for (let i = 0; i < values.length; i++) {
+    let item = values[i];
+    if (!otherSet.has(item)) {
+      return false;
+    }
+  }
+
+  return true;
+};
+``
