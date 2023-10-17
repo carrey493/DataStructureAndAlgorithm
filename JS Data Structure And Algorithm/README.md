@@ -1686,3 +1686,170 @@ Set.prototype.subset = function (otherSet) {
   return true;
 };
 ``
+
+```
+
+## 字典
+
+**数组-集合-字典**是几乎编程语言都会默认提供的数据类型.
+
+在JavaScript中默认提供了数组, ES6中增加了集合和字典,在上一章节中,我们自己通过对象实现了一下集合.
+
+本章,我们还是基于对象实现一下字典.
+
+### 一.认识字典
+
+生活中的字典
+
+- 中文字典我们可以根据拼音去查找汉字，并且找到汉字对应的词以及解释.
+- 英文字典也是类似,根据英文字母找到对应的单词,再查看其翻译和应用场景.
+
+字典有什么**特点**呢?
+
+- 字典的主要特点是**一一对应**的关系.
+- 比如保存一个人的信息，在合适的情况下取出这些信息.
+- 使用数组的方式:[18, "Coderwhy",1.88].可以通过下标值取出信息.
+- 使用字典的方式: {"age" : 18，"name" : "Coderwhy"，"height": 1.88}.可以通过key取出value
+- 另外字典中的key是不可以重复的,而Value可以重复.并且字典中的key是无序的.
+
+字典和映射的关系:
+
+- 有些编程语言中称这种**映射关系**为**字典**,因为它确实和生活中的字典比较相似.(比如Swift中Dictionary, Plython中的dict)
+
+- 有些编程语言中称这种**映射关系**为**Map**，注意Map在这里不要翻译成地图,而是翻译成映射.(比如Java中就有HashMap&TreeMap等)
+
+字典和数组:
+
+- 字典和数组对比的话,字典可以非常方便的通过key来搜索对应的value, key可以包含特殊含义，也更容易被人们记住.
+
+字典和对象
+
+- 很多编程语言(比如Java)中对字典和对象区分比较明显,对象通常是一种在编译期就确定下来的结构,不可以动态的添加或者删除属性.而字典通常会使用类似于**哈希表**的数据结构去实现一种可以动态的添加数据的结构.
+
+- **但是在JavaScript中,似乎对象本身就是一种字典.所有在早期的JavaScript中，,没有字典这种数据类型,因为你完全可以使用对象去代替.**
+
+**创建字典类**
+
+我们向之前封装集合一样, 封装一个字典的构造函数
+
+```js
+// 创建字典的构造函数
+function Dictionay() {
+    // 字典属性
+    this.items = {}
+    
+    // 字典操作方法
+}
+```
+
+代码解析
+
+- 非常简单, 创建一个Dictionary的构造函数, 用于我们字典的封装.
+
+- 在字典中, 我们使用了一个items属性, 该属性是一个Object对象.
+
+- 也就是我们的字典是基于Object封装的, 这个不难理解: 就像我们之前封装Stack和Queue是基于数组的一样.
+
+- 后面我们在添加字典相关的操作
+
+  ### 二.操作字典
+
+> 我们之前封装的数据结构, 都有封装各种操作, 字典也是一样
+
+**常见的操作**
+
+- `set(key,value)`：向字典中添加新元素。
+- `remove(key)`：通过使用键值来从字典中移除键值对应的数据值。
+- has(key)`：如果某个键值存在于这个字典中，则返回`true`，反之则返回`false`。
+- `get(key)`：通过键值查找特定的数值并返回。
+- `clear()`：将这个字典中的所有元素全部删除。
+- `size()`：返回字典所包含元素的数量。与数组的`length`属性类似。
+- `keys()`：将字典所包含的所有键名以数组形式返回。
+- `values()`：将字典所包含的所有数值以数组形式返回。
+
+**操作实现**
+
+```js
+// 创建字典的构造函数
+function Dictionay() {
+    // 字典属性
+    this.items = {}
+
+    // 字典操作方法
+    // 在字典中添加键值对
+    Dictionay.prototype.set = function (key, value) {
+        this.items[key] = value
+    }
+
+    // 判断字典中是否有某个key
+    Dictionay.prototype.has = function (key) {
+        return this.items.hasOwnProperty(key)
+    }
+
+    // 从字典中移除元素
+    Dictionay.prototype.remove = function (key) {
+        // 1.判断字典中是否有这个key
+        if (!this.has(key)) return false
+
+        // 2.从字典中删除key
+        delete this.items[key]
+        return true
+    }
+
+    // 根据key去获取value
+    Dictionay.prototype.get = function (key) {
+        return this.has(key) ? this.items[key] : undefined
+    }
+
+    // 获取所有的keys
+    Dictionay.prototype.keys = function () {
+        return Object.keys(this.items)
+    }
+
+    // 获取所有的value
+    Dictionay.prototype.values = function () {
+        return Object.values(this.items)
+    }
+
+    // size方法
+    Dictionay.prototype.size = function () {
+        return this.keys().length
+    }
+
+    // clear方法
+    Dictionay.prototype.clear = function () {
+        this.items = {}
+    }
+}
+```
+
+代码比较简单, 和之前实现的Set也比较类似, 不再深度解析.
+
+**字典的使用**
+
+我们来使用和测试一下字典类
+
+```js
+// 创建字典对象
+var dict = new Dictionay()
+
+// 在字典中添加元素
+dict.set("age", 18)
+dict.set("name", "Coderwhy")
+dict.set("height", 1.88)
+dict.set("address", "广州市")
+
+// 获取字典的信息
+alert(dict.keys()) // age,name,height,address
+alert(dict.values()) // 18,Coderwhy,1.88,广州市
+alert(dict.size()) // 4
+alert(dict.get("name")) // Coderwhy
+
+// 字典的删除方法
+dict.remove("height")
+alert(dict.keys())// age,name,address
+
+// 清空字典
+dict.clear()
+```
+
