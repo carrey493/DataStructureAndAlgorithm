@@ -15,8 +15,8 @@
 #### 什么是数据结构
 
 - 数据结构是数据对象，以及存在于该对象的实例和组成实例的数据元素之间的各种联系。这些联系可以通过定义相关的函数来给出。
-- 数据结构是 ADT（抽象数据类型 Abstract Data Type )的物理实现。
-- 数据结构（ data structure )是计算机中存储、组织数据的方式。通常情况下，精心选择的数据结构可以带来最优效率的算法。
+- 数据结构是 AD(抽象数据类型 Abstract Data Type)的物理实现。
+- 数据结构(data structure)是计算机中存储、组织数据的方式。通常情况下，精心选择的数据结构可以带来最优效率的算法。
 
 **数据结构就是在计算机中，存储和组织数据的方式**
 
@@ -1274,7 +1274,8 @@ DoublyLinkedList.prototype.backwardString = function () {
 };
 ```
 
-#### 3.insert方法
+#### 3.insert 方法
+
 ```js
 // 3.insert方法
 DoublyLinkedList.prototype.insert = function (position, data) {
@@ -1316,7 +1317,8 @@ DoublyLinkedList.prototype.insert = function (position, data) {
 };
 ```
 
-#### 4.get方法
+#### 4.get 方法
+
 ```js
 // 4.get方法
 DoublyLinkedList.prototype.get = function (position) {
@@ -1337,7 +1339,8 @@ DoublyLinkedList.prototype.get = function (position) {
 };
 ```
 
-#### 5.indexOf方法
+#### 5.indexOf 方法
+
 ```js
 DoublyLinkedList.prototype.indexOf = function (data) {
   //1.定义变量
@@ -1357,7 +1360,8 @@ DoublyLinkedList.prototype.indexOf = function (data) {
 };
 ```
 
-#### 6.update方法
+#### 6.update 方法
+
 ```js
 DoublyLinkedList.prototype.update = function (position, newData) {
   //1.越界判断
@@ -1376,47 +1380,49 @@ DoublyLinkedList.prototype.update = function (position, newData) {
 };
 ```
 
-#### 7.removeAt方法
+#### 7.removeAt 方法
+
 ```js
 DoublyLinkedList.prototype.remveAt = function (position) {
-//1.越界判断
-if (position < 0 || position >= this.length) return null;
-if (this.length === 0) return null;
+  //1.越界判断
+  if (position < 0 || position >= this.length) return null;
+  if (this.length === 0) return null;
 
-//2.判断是否只有一个节点
-let current = this.head;
+  //2.判断是否只有一个节点
+  let current = this.head;
 
-if (this.length === 1) {
-  this.head = null;
-  this.tail = null;
-} else {
-  //判断是否删除的是第一个节点
-  if (position === 0) {
-    this.head.next.prev = null;
-    this.head = this.head.next;
-  } else if (position === this.length - 1) {
-    console.log(55555555);
-    //表示删除最后一个节点
-    current = this.tail
-    this.tail.prev.next = null;
-    this.tail = this.tail.prev;
+  if (this.length === 1) {
+    this.head = null;
+    this.tail = null;
   } else {
-    console.log(55555555);
-    let index = 0;
-    while (index++ < position) {
-      current = current.next;
+    //判断是否删除的是第一个节点
+    if (position === 0) {
+      this.head.next.prev = null;
+      this.head = this.head.next;
+    } else if (position === this.length - 1) {
+      console.log(55555555);
+      //表示删除最后一个节点
+      current = this.tail;
+      this.tail.prev.next = null;
+      this.tail = this.tail.prev;
+    } else {
+      console.log(55555555);
+      let index = 0;
+      while (index++ < position) {
+        current = current.next;
+      }
+      current.prev.next = current.next;
+      current.next.prev = current.prev;
     }
-    current.prev.next = current.next;
-    current.next.prev = current.prev;
   }
-}
-//3.length - 1
-this.length -= 1;
-return current.data;
+  //3.length - 1
+  this.length -= 1;
+  return current.data;
 };
 ```
 
-#### 8.remove方法
+#### 8.remove 方法
+
 ```js
 DoublyLinkedList.prototype.remove = function (data) {
   //1.根据data获取下标值
@@ -1427,14 +1433,16 @@ DoublyLinkedList.prototype.remove = function (data) {
 };
 ```
 
-#### 9.isEmpty方法
+#### 9.isEmpty 方法
+
 ```js
 DoublyLinkedList.prototype.isEmpty = function () {
   return this.length === 0;
 };
 ```
 
-#### 10.size方法
+#### 10.size 方法
+
 ```js
 DoublyLinkedList.prototype.size = function () {
   return this.length;
@@ -1442,6 +1450,7 @@ DoublyLinkedList.prototype.size = function () {
 ```
 
 #### 11.获取链表的第一个元素
+
 ```js
 DoublyLinkedList.prototype.getHead = function () {
   return this.head.data;
@@ -1449,6 +1458,7 @@ DoublyLinkedList.prototype.getHead = function () {
 ```
 
 #### 12.获取链表的最后有一个元素
+
 ```js
 DoublyLinkedList.prototype.getTail = function () {
   return this.tail.data;
@@ -1462,25 +1472,25 @@ DoublyLinkedList.prototype.getTail = function () {
 - 几乎每种编程语言中,都有**集合结构**
 - 集合比较常见的实现方式是**哈希表**(后续会学习),我们这里来实现一个封装的集合类
 - 集合通常是由一组**无序的**,**不能重复**的元素构成
-   - 和数学中的集合名词比较相似,但是数学中的集合范围更大一些,也允许集合中的元素重复
-   - 在计算机中,集合通常表示的结构中元素是**不允许重复的**
+  - 和数学中的集合名词比较相似,但是数学中的集合范围更大一些,也允许集合中的元素重复
+  - 在计算机中,集合通常表示的结构中元素是**不允许重复的**
 - **特殊的数组**
   - 持殊之处在于里面的元素**没有顺序**,也**不能重复**
   - 没有顺序意味着**不能通过下标值进行访问**,不能重复意味着**相同的对象**在集合中只会**存在一份**
 - 学习集合还是和之前一样,封装一个集合类.
-  - 2011年6月份发布的**ES5**中已经包含了Array类
-  - 2015年6月份发布的**ES6**中包含了**Set类**,所以其实我们可以不封装,直接使用它.
-  - 但是这里,为了明确集合的内部实现机制,我们这里还是自己来封装一下这个Set类.
+  - 2011 年 6 月份发布的**ES5**中已经包含了 Array 类
+  - 2015 年 6 月份发布的**ES6**中包含了**Set 类**,所以其实我们可以不封装,直接使用它.
+  - 但是这里,为了明确集合的内部实现机制,我们这里还是自己来封装一下这个 Set 类.
 
 ### 二.集合的常见操作
 
 集合有哪些常见的操作方法呢?
 
 - add(value):向集合添加一个新的项。
-- remove(value)∶从集合移除一个值。
-- has(value):如果值在集合中，返回true，否则返回false。
-- clear()∶移除集合中的所有项。
-- size():返回集合所包含元素的数量。与数组的length属性类似。
+- remove(value)∶ 从集合移除一个值。
+- has(value):如果值在集合中，返回 true，否则返回 false。
+- clear()∶ 移除集合中的所有项。
+- size():返回集合所包含元素的数量。与数组的 length 属性类似。
 - values():返回一个包含集合中所有值的数组。
 
 还有一些集合其他相关的操作，暂时用不太多，这里暂不封装.我们来一个个实现这些方法,相对都比较简单.
@@ -1535,7 +1545,7 @@ Set.prototype.values = function () {
 
 - 并集:对于给定的两个集合，返回一个包含两个集合中所有元素的新集合.
 - 交集:对于给定的两个集合，返回一个包含两个集合中共有元素的新集合.
-- 差集∶对于给定的两个集合，返回一个包含所有存在于第一个集合且不存在于第二个集合的元素的新集合。
+- 差集 ∶ 对于给定的两个集合，返回一个包含所有存在于第一个集合且不存在于第二个集合的元素的新集合。
 - 子集:验证一个给定集合是否是另一集合的子集。
 
 ![](https://img2023.cnblogs.com/blog/2332774/202308/2332774-20230803000307461-1458466103.png)
@@ -1543,15 +1553,16 @@ Set.prototype.values = function () {
 1. **并集**
 
 并集：
+
 - 并集其实对应就是数学中并集的概念
-- 集合A和B的并集，表示为AUB。
-- 意思是×(元素)存在于A中，或×存在于B中。
+- 集合 A 和 B 的并集，表示为 AUB。
+- 意思是 ×(元素)存在于 A 中，或 × 存在于 B 中。
 
 代码解析:
 
 - 首先需要创建一个新的集合，代表两个集合的并集。
-- 遍历集合1中所有的值,并且添加到新集合中。
-- 遍历集合2中所有的值,并且添加到新集合中。
+- 遍历集合 1 中所有的值,并且添加到新集合中。
+- 遍历集合 2 中所有的值,并且添加到新集合中。
 - 将最终的新集合返回。
 
 ```js
@@ -1582,14 +1593,14 @@ Set.prototype.union = function (otherSet) {
 交集：
 
 - 交集其实对应的就是数学中交集的概念
-- 集合A和B的交集，表示为A∩B
-- 意思是×(元素)存在于A中，且x存在于B中。
+- 集合 A 和 B 的交集，表示为 A∩B
+- 意思是 ×(元素)存在于 A 中，且 x 存在于 B 中。
 
 代码解析
 
 - 创建一个新的集合.
-- 遍历集合1中的所有元素,判断是否该元素在集合2中
-- 同时在集合2中,将该元素加入到新集合中.
+- 遍历集合 1 中的所有元素,判断是否该元素在集合 2 中
+- 同时在集合 2 中,将该元素加入到新集合中.
 - 将最终的新集合返回.
 
 ```js
@@ -1619,16 +1630,15 @@ Set.prototype.intersection = function (otherSet) {
 差集：
 
 - 差集其实对应的就是数学中差集的概念
-- 集合A和B的差集，表示为A-B，定义如下∶
-- 意思是×(元素)存在于A中，且x不存在于B中。
+- 集合 A 和 B 的差集，表示为 A-B，定义如下 ∶
+- 意思是 ×(元素)存在于 A 中，且 x 不存在于 B 中。
 
 代码解析
 
 - 创建一个新的集合.
-- 遍历集合1中所有的元素,判断是否在集合2中.
-- 不存在于集合2中,将该元素添加到新集合中.
+- 遍历集合 1 中所有的元素,判断是否在集合 2 中.
+- 不存在于集合 2 中,将该元素添加到新集合中.
 - 将新集合返回
-
 
 ```js
 Set.prototype.difference = function (otherSet) {
@@ -1649,21 +1659,22 @@ Set.prototype.difference = function (otherSet) {
     }
   }
   return differenceSet;
-  };
+};
 ```
 
 4. **子集**
 
 - 子集其实对应的就是数学中子集的概念
-- 集合A是B的子集（或集合B包含了A），表示为A S B
-- 意思是集合A中的每一个×(元素)，也需要存在于B中。
+- 集合 A 是 B 的子集（或集合 B 包含了 A），表示为 A S B
+- 意思是集合 A 中的每一个 ×(元素)，也需要存在于 B 中。
 
 代码解析:
-- 判断集合1是否大于集合2,如果大于，那么肯定不是集合2的子集.
+
+- 判断集合 1 是否大于集合 2,如果大于，那么肯定不是集合 2 的子集.
 - 不大于的情况下:
-  - 判断集合1中的元素是否都在集合2中存在.
-  - 存在,那么是集合2的子集.
-  - 有一个不存在,那么不是集合2的子集.
+  - 判断集合 1 中的元素是否都在集合 2 中存在.
+  - 存在,那么是集合 2 的子集.
+  - 有一个不存在,那么不是集合 2 的子集.
 
 ```js
 Set.prototype.subset = function (otherSet) {
@@ -1685,15 +1696,14 @@ Set.prototype.subset = function (otherSet) {
 
   return true;
 };
-``
-
+``;
 ```
 
 ## 字典
 
 **数组-集合-字典**是几乎编程语言都会默认提供的数据类型.
 
-在JavaScript中默认提供了数组, ES6中增加了集合和字典,在上一章节中,我们自己通过对象实现了一下集合.
+在 JavaScript 中默认提供了数组, ES6 中增加了集合和字典,在上一章节中,我们自己通过对象实现了一下集合.
 
 本章,我们还是基于对象实现一下字典.
 
@@ -1709,24 +1719,24 @@ Set.prototype.subset = function (otherSet) {
 - 字典的主要特点是**一一对应**的关系.
 - 比如保存一个人的信息，在合适的情况下取出这些信息.
 - 使用数组的方式:[18, "Coderwhy",1.88].可以通过下标值取出信息.
-- 使用字典的方式: {"age" : 18，"name" : "Coderwhy"，"height": 1.88}.可以通过key取出value
-- 另外字典中的key是不可以重复的,而Value可以重复.并且字典中的key是无序的.
+- 使用字典的方式: {"age" : 18，"name" : "Coderwhy"，"height": 1.88}.可以通过 key 取出 value
+- 另外字典中的 key 是不可以重复的,而 Value 可以重复.并且字典中的 key 是无序的.
 
 字典和映射的关系:
 
-- 有些编程语言中称这种**映射关系**为**字典**,因为它确实和生活中的字典比较相似.(比如Swift中Dictionary, Plython中的dict)
+- 有些编程语言中称这种**映射关系**为**字典**,因为它确实和生活中的字典比较相似.(比如 Swift 中 Dictionary, Plython 中的 dict)
 
-- 有些编程语言中称这种**映射关系**为**Map**，注意Map在这里不要翻译成地图,而是翻译成映射.(比如Java中就有HashMap&TreeMap等)
+- 有些编程语言中称这种**映射关系**为**Map**，注意 Map 在这里不要翻译成地图,而是翻译成映射.(比如 Java 中就有 HashMap&TreeMap 等)
 
 字典和数组:
 
-- 字典和数组对比的话,字典可以非常方便的通过key来搜索对应的value, key可以包含特殊含义，也更容易被人们记住.
+- 字典和数组对比的话,字典可以非常方便的通过 key 来搜索对应的 value, key 可以包含特殊含义，也更容易被人们记住.
 
 字典和对象
 
-- 很多编程语言(比如Java)中对字典和对象区分比较明显,对象通常是一种在编译期就确定下来的结构,不可以动态的添加或者删除属性.而字典通常会使用类似于**哈希表**的数据结构去实现一种可以动态的添加数据的结构.
+- 很多编程语言(比如 Java)中对字典和对象区分比较明显,对象通常是一种在编译期就确定下来的结构,不可以动态的添加或者删除属性.而字典通常会使用类似于**哈希表**的数据结构去实现一种可以动态的添加数据的结构.
 
-- **但是在JavaScript中,似乎对象本身就是一种字典.所有在早期的JavaScript中，,没有字典这种数据类型,因为你完全可以使用对象去代替.**
+- **但是在 JavaScript 中,似乎对象本身就是一种字典.所有在早期的 JavaScript 中，,没有字典这种数据类型,因为你完全可以使用对象去代替.**
 
 **创建字典类**
 
@@ -1735,20 +1745,20 @@ Set.prototype.subset = function (otherSet) {
 ```js
 // 创建字典的构造函数
 function Dictionay() {
-    // 字典属性
-    this.items = {}
-    
-    // 字典操作方法
+  // 字典属性
+  this.items = {};
+
+  // 字典操作方法
 }
 ```
 
 代码解析
 
-- 非常简单, 创建一个Dictionary的构造函数, 用于我们字典的封装.
+- 非常简单, 创建一个 Dictionary 的构造函数, 用于我们字典的封装.
 
-- 在字典中, 我们使用了一个items属性, 该属性是一个Object对象.
+- 在字典中, 我们使用了一个 items 属性, 该属性是一个 Object 对象.
 
-- 也就是我们的字典是基于Object封装的, 这个不难理解: 就像我们之前封装Stack和Queue是基于数组的一样.
+- 也就是我们的字典是基于 Object 封装的, 这个不难理解: 就像我们之前封装 Stack 和 Queue 是基于数组的一样.
 
 - 后面我们在添加字典相关的操作
 
@@ -1772,58 +1782,58 @@ function Dictionay() {
 ```js
 // 创建字典的构造函数
 function Dictionay() {
-    // 字典属性
-    this.items = {}
+  // 字典属性
+  this.items = {};
 
-    // 字典操作方法
-    // 在字典中添加键值对
-    Dictionay.prototype.set = function (key, value) {
-        this.items[key] = value
-    }
+  // 字典操作方法
+  // 在字典中添加键值对
+  Dictionay.prototype.set = function (key, value) {
+    this.items[key] = value;
+  };
 
-    // 判断字典中是否有某个key
-    Dictionay.prototype.has = function (key) {
-        return this.items.hasOwnProperty(key)
-    }
+  // 判断字典中是否有某个key
+  Dictionay.prototype.has = function (key) {
+    return this.items.hasOwnProperty(key);
+  };
 
-    // 从字典中移除元素
-    Dictionay.prototype.remove = function (key) {
-        // 1.判断字典中是否有这个key
-        if (!this.has(key)) return false
+  // 从字典中移除元素
+  Dictionay.prototype.remove = function (key) {
+    // 1.判断字典中是否有这个key
+    if (!this.has(key)) return false;
 
-        // 2.从字典中删除key
-        delete this.items[key]
-        return true
-    }
+    // 2.从字典中删除key
+    delete this.items[key];
+    return true;
+  };
 
-    // 根据key去获取value
-    Dictionay.prototype.get = function (key) {
-        return this.has(key) ? this.items[key] : undefined
-    }
+  // 根据key去获取value
+  Dictionay.prototype.get = function (key) {
+    return this.has(key) ? this.items[key] : undefined;
+  };
 
-    // 获取所有的keys
-    Dictionay.prototype.keys = function () {
-        return Object.keys(this.items)
-    }
+  // 获取所有的keys
+  Dictionay.prototype.keys = function () {
+    return Object.keys(this.items);
+  };
 
-    // 获取所有的value
-    Dictionay.prototype.values = function () {
-        return Object.values(this.items)
-    }
+  // 获取所有的value
+  Dictionay.prototype.values = function () {
+    return Object.values(this.items);
+  };
 
-    // size方法
-    Dictionay.prototype.size = function () {
-        return this.keys().length
-    }
+  // size方法
+  Dictionay.prototype.size = function () {
+    return this.keys().length;
+  };
 
-    // clear方法
-    Dictionay.prototype.clear = function () {
-        this.items = {}
-    }
+  // clear方法
+  Dictionay.prototype.clear = function () {
+    this.items = {};
+  };
 }
 ```
 
-代码比较简单, 和之前实现的Set也比较类似, 不再深度解析.
+代码比较简单, 和之前实现的 Set 也比较类似, 不再深度解析.
 
 **字典的使用**
 
@@ -1831,26 +1841,26 @@ function Dictionay() {
 
 ```js
 // 创建字典对象
-var dict = new Dictionay()
+var dict = new Dictionay();
 
 // 在字典中添加元素
-dict.set("age", 18)
-dict.set("name", "Coderwhy")
-dict.set("height", 1.88)
-dict.set("address", "广州市")
+dict.set("age", 18);
+dict.set("name", "Coderwhy");
+dict.set("height", 1.88);
+dict.set("address", "广州市");
 
 // 获取字典的信息
-alert(dict.keys()) // age,name,height,address
-alert(dict.values()) // 18,Coderwhy,1.88,广州市
-alert(dict.size()) // 4
-alert(dict.get("name")) // Coderwhy
+alert(dict.keys()); // age,name,height,address
+alert(dict.values()); // 18,Coderwhy,1.88,广州市
+alert(dict.size()); // 4
+alert(dict.get("name")); // Coderwhy
 
 // 字典的删除方法
-dict.remove("height")
-alert(dict.keys())// age,name,address
+dict.remove("height");
+alert(dict.keys()); // age,name,address
 
 // 清空字典
-dict.clear()
+dict.clear();
 ```
 
 ## 哈希表
@@ -1864,24 +1874,26 @@ dict.clear()
 几乎所有的编程语言都有直接或者间接的应用这种数据结构
 
 哈希表通常是基于数组进行实现的,但是相对于数组,它也很多的优势:
+
 - 它可以提供非常快速的插入-删除-查找操作
-- 无论多少数据,插入和删除值需要接近常量的时间:即O(1)的时间级，实际上，只需要几个机器指令即可完成。
+- 无论多少数据,插入和删除值需要接近常量的时间:即 O(1)的时间级，实际上，只需要几个机器指令即可完成。
 - 哈希表的速度比树还要快,基本可以瞬间查找到想要的元素
 - 哈希表相对于树来说编码要容易很多
 
-1.数组进行插入操作时，效率比较低
-2.数组进行查找操作的效率
+  1.数组进行插入操作时，效率比较低 2.数组进行查找操作的效率
+
   - 如果是基于索引进行查找操作效率非常高
-  - 基于内容去查找(比如name='why')，效率比较低。
-3.数组进行删除操作,效率也不高。
+  - 基于内容去查找(比如 name='why')，效率比较低。 3.数组进行删除操作,效率也不高。
 
 哈希表相对于数组的一些不足:
+
 - 哈希表中的数据是没有顺序的,所以不能以一种固定的方式(比如从小到大)来遍历其中的元素.
-- 通常情况下，哈希表中的key是不允许重复的, 不能放置相同的key,用于保存不同的元素.
+- 通常情况下，哈希表中的 key 是不允许重复的, 不能放置相同的 key,用于保存不同的元素.
 
 ### 二.哈希表到底是什么呢
 
 那么，哈希表到底是什么呢？
+
 - 似乎还是没有说它到底是什么。
 - 这也是哈希表不好理解的地方，不像数组和链表，甚至是树一样直接画出你就知道它的结构,甚至是原理了。
 - 它的结构就是数组，但是它神奇的地方在于对下标值的一种变换，这种变换我们可以称之为`哈希函数`，通过哈希函数可以获取到`HashCode`。
@@ -1893,10 +1905,10 @@ dict.clear()
 ![](https://img2024.cnblogs.com/blog/2332774/202401/2332774-20240107230355628-2082708037.png)
 
 2. 案例二：联系人和电话存储
-   
+
 ![](https://img2024.cnblogs.com/blog/2332774/202401/2332774-20240107231341071-1279087168.png)
 
-3. 案例三：50000个单词的存储
+3. 案例三：50000 个单词的存储
 
 ![](https://img2024.cnblogs.com/blog/2332774/202401/2332774-20240107231912075-389753502.png)
 
@@ -1907,10 +1919,11 @@ dict.clear()
 单词/字符串转下标值，其实就是字母/文字转数字。
 
 现在我们需要设计一种方案,可以将单词转成适当的下标:
+
 - 其实计算机中有很多的编码方案就是用数字代替单词的字符.就是字符编码.(常见的字符编码?)
-- 比如ASCIl编码: a是97, b是98,依次类推122代表z
-- 我们也可以设计一个自己的编码系统,比如a是1, b是2,c是3,依次类推,z是26.
-- 当然我们可以加上空格用O代替,就是27个字符(不考虑大写问题)
+- 比如 ASCIl 编码: a 是 97, b 是 98,依次类推 122 代表 z
+- 我们也可以设计一个自己的编码系统,比如 a 是 1, b 是 2,c 是 3,依次类推,z 是 26.
+- 当然我们可以加上空格用 O 代替,就是 27 个字符(不考虑大写问题)
 - 但是,有了编码系统后，一个单词如何转成数字呢?
 
 ![](https://img2024.cnblogs.com/blog/2332774/202401/2332774-20240109233621796-1649312571.png)
@@ -1920,52 +1933,58 @@ dict.clear()
 **方案一：数字相加**
 
 - 一种转换单词的简单方案就是把单词每个字符的编码求和.
-- 例如单词cats转成数字:3+1+20+19=43,那么43就作为cats单词的下标存在数组中.
+- 例如单词 cats 转成数字:3+1+20+19=43,那么 43 就作为 cats 单词的下标存在数组中.
 
-> 问题:按照这种方案有一个很明显的问题就是很多单词最终的下标可能都是43.
-- 比如was/tin/give/tend/moan/tick等等.
+> 问题:按照这种方案有一个很明显的问题就是很多单词最终的下标可能都是 43.
+
+- 比如 was/tin/give/tend/moan/tick 等等.
 - 我们知道数组中一个下标值位置只能存储一个数据
 - 如果存入后来的数据,必然会造成数据的覆盖.
 - 一个下标存储这么多单词显然是不合理的.
 
 **方案二:幂的连乘**
 
-- 现在,我们想通过一种算法,让cats转成数字后不那么普通.
+- 现在,我们想通过一种算法,让 cats 转成数字后不那么普通.
 - 数字相加的方案就有些过于普通了.
 - 有一种方案就是使用幂的连乘,什么是幂的连乘呢?
-- 其实我们平时使用的太于10的数字,可以用一种幂的连乘来表示它的唯一性:比如:7654= 7*103+6*102+5*10+4
-- 我们的单词也可以使用这种方案来表示:比如cats =3*273+1*272+20*27+17= 60337
+- 其实我们平时使用的太于 10 的数字,可以用一种幂的连乘来表示它的唯一性:比如:7654= 7*103+6*102+5\*10+4
+- 我们的单词也可以使用这种方案来表示:比如 cats =3*273+1*272+20\*27+17= 60337
 - 这样得到的数字可以基本保证它的唯一性,不会和别的单词重复.
 
->问题:如果一个单词是zzzzzzzzzz(一般英文单词不会超过10个字符).那么得到的数字超过7000000000000.数组可以表示这么大的下标值吗?
+> 问题:如果一个单词是 zzzzzzzzzz(一般英文单词不会超过 10 个字符).那么得到的数字超过 7000000000000.数组可以表示这么大的下标值吗?
+
 - 而且就算能创建这么大的数组,事实上有很多是无效的单词.
 - 创建这么大的数组是没有意义的.
 
 两种方案总结:
+
 - 第一种方案(把数字相加求和)产生的数组下标太少.
-- 第二种方案(与27的幂相乘求和)产生的数组下标又太多.
+- 第二种方案(与 27 的幂相乘求和)产生的数组下标又太多.
 
 ### 三.认识哈希化
 
 现在需要一种压缩方法,把幂的连乘方案系统中得到的巨大整数范围压缩到可接受的数组范围中.
 
 对于英文词典,多大的数组才合适呢?
-- 如果只有50000个单词,可能会定义一个长度为50000的数组.
+
+- 如果只有 50000 个单词,可能会定义一个长度为 50000 的数组.
 - 但是实际情况中,往往需要更大的空间来存储这些单词.因为我们不能保证单词会映射到每一个位置.
 - 比如两倍的大小: 100000.
 
 如何压缩呢？
-- 现在,就找一种方法,把0到超过7000000000000的范围，压缩为从0到100Q00.
+
+- 现在,就找一种方法,把 0 到超过 7000000000000 的范围，压缩为从 0 到 100Q00.
 - 有一种简单的方法就是使用取余操作符，它的作用是得到一个数被另外一个数整除后的余数.
 
 **取余操作的实现:**
+
 1. 为了看到这个方法如何工作,我们先来看一个小点的数字范围压缩到一个小点的空间中.
-2. 假设把从0~199的数字，比如使用largeNumber代表,压缩为从0到9的数字，比如使用smallRange代表.
+2. 假设把从 0~199 的数字，比如使用 largeNumber 代表,压缩为从 0 到 9 的数字，比如使用 smallRange 代表.
 3. 下标值的结果: index = largeNumber % smallRange;
-4. 当一个数被10整除时,余数一定在0~9之间;
-5. 比如13%10=3,157%10=7.
-6. 当然,这中间还是会有重复,不过重复的数量明显变小了.因为我们的数组是100000,而只有50000个单词.
-7. 就好比，你在0~199中间选取5个数字,放在这个长度为10的数组中,也会重复,但是重复的概率非常小.(后面我们会讲到真的发生重复了应该怎么解决)
+4. 当一个数被 10 整除时,余数一定在 0~9 之间;
+5. 比如 13%10=3,157%10=7.
+6. 当然,这中间还是会有重复,不过重复的数量明显变小了.因为我们的数组是 100000,而只有 50000 个单词.
+7. 就好比，你在 0~199 中间选取 5 个数字,放在这个长度为 10 的数组中,也会重复,但是重复的概率非常小.(后面我们会讲到真的发生重复了应该怎么解决)
 
 认识情况了上面的内容,相信你应该懂了哈希表的原理了，我们来看看几个概念;
 
@@ -1973,6 +1992,38 @@ dict.clear()
 - **哈希函数**:通常我们会将单词转成大数字，大数字在进行哈希化的代码实现放在一个函数中,这个函数我们成为哈希函数.
 - **哈希表**:最终将数据插入到的这个数组,对整个结构的封装,我们就称之为是一个哈希表
 
->但是,我们还有问题需要解决:
-- 虽然,我们在一个100000的数组中，放50000个单词已经足够.
+> 但是,我们还有问题需要解决:
+
+- 虽然,我们在一个 100000 的数组中，放 50000 个单词已经足够.
 - 但是通过哈希化后的下标值依然可能会重复,如何解决这种重复的问题呢?
+
+#### 1. 什么是冲突
+
+通过哈希函数得到数组的下标值后，发现那个位置上已经存在一个数据，因为它经过哈希化后和前一个得到的下标实现是相同的，这种情况我们成为**冲突**。
+
+虽然我们不希望这种情况发生，当然更希望每个下标对应一个数据项，但是通常这是不可能的。**冲突不可避免**，我们只能**解决冲突**。
+
+如何解决这种冲突呢？常见的情况有两种方案：**链地址法**，**开放地址法**。
+
+#### 2. 链地址法
+
+链地址法是一种比较常见的解决冲突的方案.(也称为拉链法)
+
+![](https://img2024.cnblogs.com/blog/2332774/202401/2332774-20240119080501235-30609031.png)
+
+解释：每一个下标值不再单纯的存一个数据，而是一个链表或数组，然后再存放一个一个数据。
+
+- 图片解析:
+  - 从图片中我们可以看出，链地址法解决冲突的办法是`每个数组单元`中存储的不再是单个数据,而是一个链条。
+  - 这个链条使用什么数据结构呢？常见的是**数组或者链表**。
+  - 比如是链表，也就是每个数组单元中存储着一个链表.一旦发现重复,将重复的元素**插入**到链表的首**端或者末端**即可。
+  - 当查询时，先根据哈希化后的下标值找到对应的位置，再取出链表，依次查询找寻找的数据。
+
+- 数组还是链表呢?
+  - 数组或者链表在这里其实都可以，**效率上也差不多**。
+  - 因为根据哈希化的index找出这个数组或者链表时，通常就会使用**线性查找**。这个时候数组和链表的效率是差不多的。
+  - 当然在某些实现中,会将新插入的数据放在**数组或者链表的最前面**，因为觉得**新插入的数据**用于**取出的可能性更大**。
+  - **这种情况最好采用链表**，因为数组在首位插入数据是需要所有其他项后移的，链表就没有这样的问题。
+  - 当然。我觉得出于这个也看**业务需求**,不见得新的数据就访问次数会更多：比如我们微信新添加的好友，可能是刚认识的，联系的频率不见得比我们的老朋友更多，甚至新加的只是聊一两句。
+  - 所以，这里个人觉得选择数据或者链表都是可以的。
+
