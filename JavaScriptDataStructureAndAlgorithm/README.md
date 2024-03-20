@@ -2220,7 +2220,9 @@ function hashFunc(str, size) {
     hashCode = 37 * hashCode + str.charCodeAt(i); // 31 37 41 43
   }
 
-  // 3.区域操作
+  // 3.取余操作
+  let index = hashCode % size;
+
   return index;
 }
 
@@ -2242,7 +2244,7 @@ console.log(hashFunc("nba", 7)); // 5
 最终我们的哈希表的数据格式是这样: [[[k,v],[k,v],[k,v] ],[ [k,v], [k,v] ],[ [k,v]]]
 
 ```js
-function hashTable() {
+function HashTable() {
   //属性
   this.storage = [];
   this.count = 0; // 记录当前数组中已经存在了多少个元素
@@ -2257,3 +2259,56 @@ function hashTable() {
 - storage 作为我们的数组,数组中存放相关的元素
 - count 表示当前已经存在了多少数据
 - limit 用于标记数组中一共可以存放多少个元素
+
+### 六. 哈希表的操作
+
+**1. 插入&修改数据**
+
+哈希表的插入和修改操作是同一个函数:
+
+- 因为,当使用者传入一个<Key, Value>时
+- 如果原来不存该 key, 那么就是插入操作
+- 如果已经存在该 key, 那么就是修改操作
+
+```js
+// 插入&修改操作
+HashTable.prototype.put = function (key, value) {
+  // 1. 根据key获取index
+  let index = this.hashFunc(key, this.limit);
+
+  // 2. 根据index取出对应的bucket
+  let bucket = this.storage[index];
+
+  // 3. 判断该bucket是否为null
+  if (bucket === null) {
+    bucket = [];
+    this.storage[index] = bucket;
+  }
+
+  // 4. 判断是否为修改数据
+  for (let i = 0; i < bucket.length; i++) {
+    let tuple = bucket[i]; // 元组
+    if (tuple[0] === key) {
+      tuple[1] = value;
+      return;
+    }
+  }
+
+  // 5. 进行添加操作
+  bucket.push([key, value]);
+  this.count += 1;
+};
+```
+
+代码解析:
+
+- 步骤 1: 根据传入的 key 获取对应的 hashCode，也就是数组的 index
+- 步骤 2: 从哈希表的 index 位置中取出桶(另外一个数组)
+- 步骤 3: 查看上一步的 bucket 是否为 null
+  - 为 null，表示之前在该位置没有放置过任何的内容,那么就新建一个数组
+- 步骤 4: 查看是否之前已经放置过 key 对应的 value
+  - 如果放置过，那么就是依次替换操作,而不是插入新的数据.
+  - 我们使用一个变量 override 来记录是否是修改操作
+- 步骤 5: 如果不是修改操作,那么插入新的数据
+  - 在 bucket 中 push 新的[key, value]即可
+  - 注意: 这里需要将 count+1,因为数据增加了一项
