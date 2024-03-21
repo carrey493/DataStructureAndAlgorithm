@@ -52,7 +52,7 @@ function HashTable() {
     return index;
   };
 
-  // 插入&修改操作
+  // 1.插入&修改操作
   HashTable.prototype.put = function (key, value) {
     // 1. 根据key获取index
     let index = this.hashFunc(key, this.limit);
@@ -78,5 +78,28 @@ function HashTable() {
     // 5. 进行添加操作
     bucket.push([key, value]);
     this.count += 1;
+  };
+
+  // 2.获取方法
+  HashTable.prototype.get = function (key) {
+    // 1. 根据key获取index
+    let index = this.hashFunc(key, this.limit);
+
+    // 2. 根据index获取对应的bucket
+    let bucket = this.storage[index];
+
+    // 3. 判断bucket是否为 null
+    if (bucket === null) return null;
+
+    // 4. 有bucket，那么就进行线性查找
+    for (let i = 0; i < bucket.length; i++) {
+      let tuple = bucket[i]; // 元组
+      if (tuple[0] === key) {
+        return tuple[1];
+      }
+    }
+
+    // 5.依然没有找到，那么返回null
+    return null;
   };
 }

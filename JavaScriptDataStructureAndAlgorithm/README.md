@@ -2266,7 +2266,7 @@ function HashTable() {
 
 哈希表的插入和修改操作是同一个函数:
 
-- 因为,当使用者传入一个<Key, Value>时
+- 因为,当使用者传入一个`<Key, Value>`时
 - 如果原来不存该 key, 那么就是插入操作
 - 如果已经存在该 key, 那么就是修改操作
 
@@ -2312,3 +2312,38 @@ HashTable.prototype.put = function (key, value) {
 - 步骤 5: 如果不是修改操作,那么插入新的数据
   - 在 bucket 中 push 新的[key, value]即可
   - 注意: 这里需要将 count+1,因为数据增加了一项
+
+**2. 获取数据**
+
+```js
+// 2.获取方法
+HashTable.prototype.get = function (key) {
+  // 1. 根据key获取index
+  let index = this.hashFunc(key, this.limit);
+
+  // 2. 根据index获取对应的bucket
+  let bucket = this.storage[index];
+
+  // 3. 判断bucket是否为 null
+  if (bucket === null) return null;
+
+  // 4. 有bucket，那么就进行线性查找
+  for (let i = 0; i < bucket.length; i++) {
+    let tuple = bucket[i]; // 元组
+    if (tuple[0] === key) {
+      return tuple[1];
+    }
+  }
+
+  // 5.依然没有找到，那么返回null
+  return null;
+};
+```
+
+代码解析
+
+1. 根据 key 获取对应的 index
+2. 根据 index 获取对应的 bucket
+3. 判断 bucket 是否为 null，如果为 null,直接返回 null
+4. 线性查找 bucket 中每一个 key 是否等于传入的 key，如果等于，那么直接返回对应的 value
+5. 遍历完后，依然没有找到对应的 key，直接 return null 即可
