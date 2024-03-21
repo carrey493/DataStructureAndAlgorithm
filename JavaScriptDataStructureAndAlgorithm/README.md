@@ -2384,3 +2384,42 @@ HashTable.prototype.remove = function (key) {
 3. 判断 bucket 是否为 null，如果为 null,直接返回 null
 4. 线性查找 bucket 中每一个 key 是否等于传入的 key，如果等于删除数据
 5. 遍历完后，依然没有找到对应的 key，直接 return null 即可
+
+**4. 其他方法**
+
+```js
+// 判断哈希表是否为null
+HashTable.prototype.isEmpty = function () {
+  return this.count === 0;
+};
+
+// 获取哈希表中元素的个数
+HashTable.prototype.size = function () {
+  return this.count;
+};
+```
+
+测试
+
+```js
+// 测试哈希表
+let ht = new HashTable();
+
+// 插入数据
+ht.put("abc", 123);
+ht.put("cba", 321);
+ht.put("nba", 520);
+ht.put("mba", 521);
+console.log(ht);
+
+// 获取数据
+console.log(ht.get("abc"));
+
+// 修改数据
+ht.put("abc", 111);
+console.log(ht.get("abc"));
+
+// 删除方法
+ht.remove("abc");
+console.log(ht.get("abc"));
+```

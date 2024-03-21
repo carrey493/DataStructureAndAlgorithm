@@ -13,7 +13,8 @@ function hashFunc(str, size) {
     hashCode = 37 * hashCode + str.charCodeAt(i); // 31 37 41 43
   }
 
-  // 3.区域操作
+  // 3.取余操作
+  let index = hashCode % size;
   return index;
 }
 
@@ -61,7 +62,7 @@ function HashTable() {
     let bucket = this.storage[index];
 
     // 3. 判断该bucket是否为null
-    if (bucket === null) {
+    if (bucket === null || bucket === undefined) {
       bucket = [];
       this.storage[index] = bucket;
     }
@@ -127,4 +128,36 @@ function HashTable() {
     // 5.依然没有找到，那么返回null
     return null;
   };
+
+  // 4. 其它方法
+  // 判断哈希表是否为null
+  HashTable.prototype.isEmpty = function () {
+    return this.count === 0;
+  };
+
+  // 获取哈希表中元素的个数
+  HashTable.prototype.size = function () {
+    return this.count;
+  };
 }
+
+// 测试哈希表
+let ht = new HashTable();
+
+// 插入数据
+ht.put("abc", 123);
+ht.put("cba", 321);
+ht.put("nba", 520);
+ht.put("mba", 521);
+console.log(ht);
+
+// 获取数据
+console.log(ht.get("abc"));
+
+// 修改数据
+ht.put("abc", 111);
+console.log(ht.get("abc"));
+
+// 删除方法
+ht.remove("abc");
+console.log(ht.get("abc"));
