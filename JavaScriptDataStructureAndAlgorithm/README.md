@@ -2347,3 +2347,40 @@ HashTable.prototype.get = function (key) {
 3. 判断 bucket 是否为 null，如果为 null,直接返回 null
 4. 线性查找 bucket 中每一个 key 是否等于传入的 key，如果等于，那么直接返回对应的 value
 5. 遍历完后，依然没有找到对应的 key，直接 return null 即可
+
+**3. 删除数据**
+
+```js
+// 3.删除方法
+HashTable.prototype.remove = function (key) {
+  // 1. 根据key获取index
+  let index = this.hashFunc(key, this.limit);
+
+  // 2. 根据index获取对应的bucket
+  let bucket = this.storage[index];
+
+  // 3. 判断bucket是否为 null
+  if (bucket === null) return null;
+
+  // 4. 有bucket，那么就进行线性查找并且删除
+  for (let i = 0; i < bucket.length; i++) {
+    let tuple = bucket[i]; // 元组
+    if (tuple[0] === key) {
+      bucket.splice(i, 1);
+      this.count--;
+      return tuple[1];
+    }
+  }
+
+  // 5.依然没有找到，那么返回null
+  return null;
+};
+```
+
+代码解析
+
+1. 根据 key 获取对应的 index
+2. 根据 index 获取对应的 bucket
+3. 判断 bucket 是否为 null，如果为 null,直接返回 null
+4. 线性查找 bucket 中每一个 key 是否等于传入的 key，如果等于删除数据
+5. 遍历完后，依然没有找到对应的 key，直接 return null 即可
